@@ -1,0 +1,27 @@
+{
+    "name": "hametuha/singleton-pattern",
+    "description": "PHP abstract singleton pattern.",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "fumikito",
+            "email": "guy@hametuha.com"
+        }
+    ],
+    "scripts": {
+        "test": "phpunit"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^5.6|^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "Hametuha\\SingletonPattern": "src"
+        }
+    }
+}
