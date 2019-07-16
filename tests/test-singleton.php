@@ -21,10 +21,13 @@ class SingletonTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * Check accessibility.
 	 *
-	 * @expectedException Error
 	 */
 	public function testAccessibility() {
-		// Construction fails.
-		$instance = new HametuhaSingletonPatternStab();
+		// Is constructor accessible?
+		$reflection = new \ReflectionClass( 'HametuhaSingletonPatternStab' );
+		$constructor = $reflection->getConstructor();
+		$this->assertFalse( $constructor->isPublic() );
+		$instance = $reflection->getMethod( 'get_instance' );
+		$this->assertTrue( $instance->isFinal() );
 	}
 }
