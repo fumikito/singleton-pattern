@@ -1,9 +1,13 @@
 <?php
+namespace Hametuha\SingletonPatternTest;
+
+
+use Hametuha\SingletonPattern\Singleton;
 
 /**
  * Stab class.
  */
-class HametuhaSingletonPatternStab extends \Hametuha\SingletonPattern\Singleton {
+class Stab extends Singleton {
 
 	private $count = 0;
 	

@@ -1,23 +1,39 @@
 language: php
-
 notifications:
   email:
     on_success: never
     on_failure: change
-
 branches:
   only:
-    - master
-    - "/^v?[0-9\\.]+$/"
-
+  - master
+  - "/^v?[0-9\\.]+$/"
 php:
 - '5.6'
 - '7.0'
 - '7.1'
 - '7.2'
-
 before_script:
-  - composer install
-
+- composer install
 script:
-  - composer test
+- composer test
+before_deploy:
+  - "echo 'Making deploy packages...'"
+  - rm -rfv .git
+  - rm -rfv bin
+  - rm -rfv tests
+  - rm -rfv .gitignore
+  - rm -rfv .travis.yml
+  - rm -rfv vendor
+  - rm -rfv composer.lock
+  - rm -rfv phpunit.xml.dist
+  - zip -r singleton-pattern.zip ./
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: adUo0GDFNuaLoRg0WTE3vUoiu31EsF29iJ9eKq4bNO7OTr+N1Cec4TsDK5845fUHGeRnpsPYtMerv5e78aXB0DuEZFkeBSHMd1fsABxQB6iiVv+3kW0ZeWR+PaPOS4rhoPTl/QLBVrPYUcXY+bLn3bZfsGe/Ouozdizo3du6OyWFGum11KC+L/aEi31brmWcXNNc5o80C9tEP2oJnk+NmcpK2QpeIfSA2umTOsBZ/X7qq9eqyL8PwBf+a3XLJZtiOqhplYQXY6jJNvMhET/ZaL6XToS6ASPFSvu0eKw3Mi0AH9sUIPFQ2NDTE91xEVjGg8taYQ6w4NstWkJ03KA6P/TaXS0pOZmS0t4/EthdJrjbw83QBPlPH/7JQBtmOqH8LvfrIsYKFe/KNGJ1/BqzrTmXRuI4bNLRICXMVCPEtEFUgq7f4eO1ue8DthULaocFQ4js/PS0RMzotI8tOCJe+NzCH1vMw1/sV9GaA1ehaA7b9mSsX9CjBmfzc7/MC6+/lwfu9NvojwCf9++NFOpcECP1jQKwFZhrT5fKGi6fU4OoNs8Juirg/bYOQWmG7w8ZsR9/fdNty+t8Hp24Qxqf8nymVlO78tz25Ui5oFHzd25Lo+xo1ZHpIs9ngnhRp1bJIDBz37azlAYL9cd3SltWRWM7k3vOVQ+Ngi6UaJicV28=
+  file: singleton-pattern.zip
+  on:
+    repo: hametuha/singleton-pattern
+    tags: true
+    php: '7.0'

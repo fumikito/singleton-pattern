@@ -23,5 +23,10 @@
         "psr-0": {
             "Hametuha\\SingletonPattern": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Hametuha\\SingletonPatternTest": "tests/src"
+        }
     }
 }
