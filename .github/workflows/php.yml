@@ -37,7 +37,7 @@ jobs:
 
   release:
     name: Upload Release
-    needs: [test, assets]
+    needs: test
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:
