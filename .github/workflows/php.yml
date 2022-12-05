@@ -17,14 +17,21 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]  # OS. ubuntu-18.04 is also available.
         php: [ '7.2', '7.4', '8.0', '8.1' ] # PHP versions to check.
-    name: WordPress ${{ matrix.wp }} in PHP ${{ matrix.php }} UnitTest
+        tools: [ composer ]
+        include:
+          - operating-system: ubuntu-18.04
+            php: 5.6
+            tools: composer:v2.2
+
+    name: UnitTest in PHP ${{ matrix.php }} UnitTest
     steps:
       - uses: actions/checkout@master
 
-      - name: Setup PHP
-        uses: nanasess/setup-php@master
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          tools: ${{ matrix.tools }}
 
       - name: Validate composer.json and composer.lock
         run: composer validate
@@ -56,9 +63,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release WPametu ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
-            Release WPametu version ${{ github.ref }}.
+            Release version ${{ github.ref }}.
           draft: false
           prerelease: false
 
